@@ -2,9 +2,7 @@
 
 Status-bar readout for a DeepSeek account: **balance**, **context-window load**, and **today's token/cost totals**, right next to the chat.
 
-![Status bar](docs/statusbar.png)
-
-Click the chip for the breakdown: balance (total / topped-up / granted), context fill with a bar, today's input/output/cached tokens and estimated cost, the last 7 days, the current session, and a per-model split.
+The chip reads `● ¥38.67 · 42% · 256k` — balance, context fill, tokens today. Click it for the breakdown: balance (total / topped-up / granted), context fill with a bar, today's input/output/cached tokens and estimated cost, the last 7 days, the current session, and a per-model split.
 
 ![Panel](docs/panel.png)
 
@@ -26,7 +24,7 @@ Costs are Hermes' own estimate in USD (it bills nothing itself); the balance is 
 hermes plugins install deepseek-meter
 
 # straight from Git, before/without the catalog
-hermes plugins install https://github.com/USER/hermes-deepseek-meter
+hermes plugins install https://github.com/samieshmil-blip/hermes-deepseek-meter
 ```
 
 Then set the key (or reuse the one Hermes already uses for the provider):

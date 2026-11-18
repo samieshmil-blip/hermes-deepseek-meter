@@ -3,8 +3,8 @@ version: 1.0.0
 manifest_version: 2
 api_version: 1
 license: MIT
-author: Sam
-homepage: https://github.com/USER/hermes-deepseek-meter
+author: samieshmil-blip
+homepage: https://github.com/samieshmil-blip/hermes-deepseek-meter
 description: >-
   DeepSeek balance and token meter for the Hermes desktop status bar: live
   account balance from the DeepSeek API, today's token/cost totals from the
