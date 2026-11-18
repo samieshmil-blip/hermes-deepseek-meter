@@ -138,6 +138,21 @@ def _balance_cached(force: bool = False) -> Dict[str, Any]:
 # --------------------------------------------------------------------------- usage
 
 
+def _compression_settings() -> Dict[str, Any]:
+    """The host's auto-compression setting, so the panel states the real threshold."""
+    try:
+        from hermes_cli.config import load_config
+
+        block = (load_config() or {}).get("compression") or {}
+        threshold = block.get("threshold", 0.5)
+        return {
+            "enabled": bool(block.get("enabled", True)),
+            "threshold_pct": round(float(threshold) * 100) if threshold is not None else None,
+        }
+    except Exception:  # noqa: BLE001 — a readout must not fail on config access
+        return {"enabled": None, "threshold_pct": None}
+
+
 def _usage() -> Dict[str, Any]:
     db = _hermes_home() / "state.db"
     if not db.exists():
@@ -220,6 +235,7 @@ async def stats(force: int = 0) -> Dict[str, Any]:
         "ok": True,
         "balance": _balance_cached(bool(force)),
         "usage": _usage(),
+        "compression": _compression_settings(),
         "generated_at": time.time(),
     }
 

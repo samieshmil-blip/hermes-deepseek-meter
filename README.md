@@ -4,7 +4,13 @@ Status-bar readout for a DeepSeek account: **balance**, **context-window load**,
 
 The chip reads `● ¥38.67 · 42% · 256k` — balance, context fill, tokens today. Click it for the breakdown: balance (total / topped-up / granted), context fill with a bar, today's input/output/cached tokens and estimated cost, the last 7 days, the current session, and a per-model split.
 
-![Panel](docs/panel.png)
+![DeepSeek Meter in the Hermes status bar](docs/hero.png)
+
+## Languages
+
+The UI follows the app language (your system locale) and falls back to English. Bundled: **English, Русский, Українська, Español, Deutsch, Français, 中文, 日本語**.
+
+![The same panel in EN / RU / ZH / JA](docs/locales.png)
 
 ## What it shows
 
