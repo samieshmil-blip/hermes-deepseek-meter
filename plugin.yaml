@@ -1,0 +1,18 @@
+name: deepseek-meter
+version: 1.0.0
+manifest_version: 2
+api_version: 1
+license: MIT
+author: Sam
+homepage: https://github.com/USER/hermes-deepseek-meter
+description: >-
+  DeepSeek balance and token meter for the Hermes desktop status bar: live
+  account balance from the DeepSeek API, today's token/cost totals from the
+  local session store, and the current context-window load.
+tags: [deepseek, usage, costs, statusbar, desktop]
+requires_hermes: ">=0.23.0"
+requires_env:
+  - name: DEEPSEEK_API_KEY
+    description: "DeepSeek API key, used for the balance call (api.deepseek.com/user/balance)"
+    url: "https://platform.deepseek.com/api_keys"
+    secret: true
