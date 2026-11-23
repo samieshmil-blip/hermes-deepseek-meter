@@ -2,7 +2,7 @@
   "name": "deepseek-meter",
   "label": "DeepSeek Meter",
   "description": "DeepSeek balance and token usage for the desktop status bar.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "icon": "Zap",
   "api": "plugin_api.py",
   "tab": { "hidden": true }

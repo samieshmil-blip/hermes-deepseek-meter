@@ -7,7 +7,7 @@ half draws the status-bar chip. It registers no tools, hooks or middleware.
 
 from __future__ import annotations
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 
 def register(ctx) -> None:  # noqa: ARG001 — nothing to register by design

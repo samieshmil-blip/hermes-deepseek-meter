@@ -22,7 +22,6 @@ from __future__ import annotations
 
 import datetime as dt
 import json
-import os
 import sqlite3
 import time
 import urllib.request
@@ -44,32 +43,33 @@ _cache: Dict[str, Any] = {"at": 0.0, "data": None}
 
 
 def _hermes_home() -> Path:
-    """Active Hermes home (profile-aware via ``HERMES_HOME``)."""
-    override = (os.environ.get("HERMES_HOME") or "").strip()
-    if override:
-        return Path(override)
-    try:
-        from hermes_constants import get_hermes_home
+    """Active Hermes home, resolved the profile-aware way.
 
-        return Path(get_hermes_home())
-    except Exception:  # noqa: BLE001 — fall back to the platform default
-        local = (os.environ.get("LOCALAPPDATA") or "").strip()
-        if local and (Path(local) / "hermes").is_dir():
-            return Path(local) / "hermes"
-        return Path.home() / ".hermes"
+    ``get_hermes_home()`` walks context override → ``HERMES_HOME`` → platform default.
+    Reading ``HERMES_HOME`` here instead would keep pointing at the *launch* profile in a
+    multiplexed process, so a secondary profile's chip would total the wrong ``state.db``.
+    """
+    from hermes_constants import get_hermes_home
+
+    return Path(get_hermes_home())
 
 
 def _api_key() -> Optional[str]:
-    """The DeepSeek key, through Hermes's profile-scoped secret route."""
-    try:
-        from agent.secret_scope import get_secret
+    """The DeepSeek key, through Hermes's profile-scoped secret route.
 
+    ``get_secret`` already falls back to the process environment where that is safe
+    (single-profile installs inject credentials there), and fails closed under
+    multiplexing. A raw ``os.environ`` fallback here would add nothing but the case
+    where one profile picks up another profile's key, so a miss stays a miss.
+    """
+    from agent.secret_scope import UnscopedSecretError, get_secret
+
+    try:
         value = get_secret("DEEPSEEK_API_KEY")
-        if value:
-            return str(value).strip()
-    except Exception:  # noqa: BLE001 — no scope installed (single-profile CLI/dashboard)
-        pass
-    value = (os.environ.get("DEEPSEEK_API_KEY") or "").strip()
+    except UnscopedSecretError:
+        # Multiplexing on and no profile scope bound: report unset rather than borrow a key.
+        return None
+    value = (value or "").strip()
     return value or None
 
 
