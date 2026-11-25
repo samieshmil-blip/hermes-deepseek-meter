@@ -4,6 +4,8 @@ Status-bar readout for a DeepSeek account: **balance**, **context-window load**,
 
 The chip reads `● ¥38.67 · 42% · 256k` — balance, context fill, tokens today. Click it for the breakdown: balance (total / topped-up / granted), context fill with a bar, today's input/output/cached tokens and estimated cost, the last 7 days, the current session, and a per-model split.
 
+Listed in the **[Hermes plugin catalog](https://github.com/NousResearch/hermes-agent/tree/main/plugin-catalog)** (community tier, pinned at the reviewed commit) — install by name, or point Hermes at this repository.
+
 ![DeepSeek Meter in the Hermes status bar](docs/hero.png)
 
 ## Languages
@@ -26,12 +28,14 @@ Costs are Hermes' own estimate in USD (it bills nothing itself); the balance is 
 ## Install
 
 ```bash
-# once listed in the catalog
+# from the Hermes plugin catalog (community tier)
 hermes plugins install deepseek-meter
 
-# straight from Git, before/without the catalog
+# or straight from Git
 hermes plugins install https://github.com/samieshmil-blip/hermes-deepseek-meter
 ```
+
+Catalog installs check out the exact reviewed commit, so `hermes plugins update deepseek-meter` moves you when a new pin is reviewed and merged — it never pulls a branch tip. Your enabled/disabled state and data files survive the update.
 
 Then set the key (or reuse the one Hermes already uses for the provider):
 
